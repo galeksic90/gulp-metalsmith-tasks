@@ -1,6 +1,6 @@
 {
   "name": "gulp-metalsmith-tasks",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gulp tasks for metalsmith",
   "author": "Goran Aleksic <goranaleksic@me.com>",
   "maintainers": [
