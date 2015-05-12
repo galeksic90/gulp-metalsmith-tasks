@@ -1,8 +1,8 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var exec = require('child_process').exec;
+var smith = require('gulp-metalsmith-build');
 
-var config = require('../../../config').build;
+var config = require('../../../config').gulp.build;
 
 var runSequence = require('run-sequence');
 
@@ -25,7 +25,7 @@ gulp.task('build:inject', function(cb) {
 
 // Generate html
 gulp.task('build:html', ['build:inject'], function(cb) {
-	return exec("node ./build.js", cb);
+	return smith.build(cb);
 });
 
 // Generate all

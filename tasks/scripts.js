@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var config = require('../../../config').build;
+var config = require('../../../config').gulp.scripts;
 
 $.series = require('stream-series');
 var runSequence = require('run-sequence');

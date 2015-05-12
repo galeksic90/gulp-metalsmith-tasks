@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
-var config = require('../../../config').build;
+var config = require('../../../config').gulp.styles;
 
 var runSequence = require('run-sequence');
 
@@ -13,7 +13,7 @@ var runSequence = require('run-sequence');
 gulp.task('styles', function() {
 	// For best performance, don't add Sass partials to `gulp.src`
 	return gulp.src(config.src)
-		.pipe($.changed('src/static/styles/', {
+		.pipe($.changed(config.dest, {
 			extension: '.css'
 		}))
 		.pipe($.if('*.scss', $.sass({
