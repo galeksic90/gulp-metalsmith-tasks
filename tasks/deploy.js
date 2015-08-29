@@ -23,55 +23,55 @@ var gitCache = $.filter(['html5.manifest', 'sitemap.xml']);
  */
 
 function inc(importance) {
-  // get all the files to bump version in
-  return gulp.src(['./package.json', './bower.json'])
-    // bump the version number in those files
-    .pipe($.bump({
-      type: importance
-    }))
-    // save it back to filesystem
-    .pipe(gulp.dest('./'))
-    .pipe($.addSrc([
-      './src/static/html5.appcache',
-      './src/static/sitemap.xml'
-    ]))
-    // commit the changed version number
-    .pipe($.git.commit('Release v' + semver.inc(
-      require('../../package.json').version,
-      importance)))
-    // read only one file to get the version number
-    .pipe($.filter('package.json'))
-    // **tag it in the repository**
-    .pipe($.tagVersion());
+	// get all the files to bump version in
+	return gulp.src(['./package.json', './bower.json'])
+		// bump the version number in those files
+		.pipe($.bump({
+			type: importance
+		}))
+		// save it back to filesystem
+		.pipe(gulp.dest('./'))
+		.pipe($.addSrc([
+			'./src/static/html5.appcache',
+			'./src/static/sitemap.xml'
+		]))
+		// commit the changed version number
+		.pipe($.git.commit('Release v' + semver.inc(
+			require('../../../package.json').version,
+			importance)))
+		// read only one file to get the version number
+		.pipe($.filter('package.json'))
+		// **tag it in the repository**
+		.pipe($.tagVersion());
 }
 
 gulp.task('tag:patch', function() {
-  return inc('patch');
+	return inc('patch');
 })
 gulp.task('tag:feature', function() {
-  return inc('minor');
+	return inc('minor');
 })
 gulp.task('tag:release', function() {
-  return inc('major');
+	return inc('major');
 })
 
 gulp.task('git:push', function() {
-  return $.git.push('origin', 'master', {
-    args: " --tags"
-  }, function(err) {
-    if (err) throw err;
-  });
+	return $.git.push('origin', 'master', {
+		args: " --tags"
+	}, function(err) {
+		if (err) throw err;
+	});
 });
 
 //
 // Deploy
 //
 gulp.task('deploy:patch', function(cb) {
-  return runSequence('tag:patch', 'git:push', cb);
+	return runSequence('tag:patch', 'git:push', cb);
 });
 gulp.task('deploy:feature', function(cb) {
-  return runSequence('tag:feature', 'git:push', cb);
+	return runSequence('tag:feature', 'git:push', cb);
 });
 gulp.task('deploy:release', function(cb) {
-  return runSequence('tag:release', 'git:push', cb);
+	return runSequence('tag:release', 'git:push', cb);
 });
