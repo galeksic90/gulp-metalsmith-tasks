@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var config = require('../../../config').gulp.scripts;
-
+//$.print=require('gulp-print');
 $.series = require('stream-series');
 var runSequence = require('run-sequence');
 
@@ -21,6 +21,7 @@ gulp.task('scripts', function() {
 		.pipe($.size({
 			title: 'scripts:plugins'
 		}))
+		//.pipe($.print())
 		.pipe(gulp.dest(config.plugins.dest))
 
 	var project = gulp.src(config.project.src)

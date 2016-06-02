@@ -2,16 +2,19 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var config = require('../../../config').gulp.images;
+$.print=require('gulp-print');
 
 var runSequence = require('run-sequence');
 
 // Optimize Images files
 gulp.task('images:min', function() {
 	return gulp.src(config.src + '/**/*')
+        //.pipe($.print())
 		.pipe($.changed(config.dest))
 		.pipe($.size({
 			title: 'images:min - before'
 		}))
+        //.pipe($.print())
 		.pipe($.imagemin({
 			progressive: true,
 			interlaced: true

@@ -9,56 +9,65 @@ var runSequence = require('run-sequence');
 // Main styles tasks
 //
 
+
 // Compile and Automatically Prefix Stylesheets
 gulp.task('styles', function() {
 	// For best performance, don't add Sass partials to `gulp.src`
-	return gulp.src(config.src)
+	
+	var result = gulp.src(config.src)
 		.pipe($.changed(config.dest, {
-			extension: '.css'
+			extension: '.scss'
 		}))
-		.pipe($.if('*.scss', $.sass({
+		.pipe($.if('*.scss', $.sass.sync({
 				errLogToConsole: true,
 				includePaths: require('node-neat').includePaths
 			})
-			.on('error', console.error.bind(console))
+			.on('error', $.sass.logError)
 		))
 		.pipe($.autoprefixer(config.autoprefixer))
 		.pipe($.size({
 			title: 'styles'
 		}))
 		.pipe(gulp.dest(config.dest));
+		
+		
+	return result;		
 });
+
 
 //
 // Uncss, base64, minify & concat all files
 //
 
 gulp.task('styles:min', function() {
-	var filterUncss = $.filter(['**/*', '!ignored.css']);
-	var filterMain = $.filter(['**/*', '!images.css']);
-	var filterImages = $.filter(['!**/*', 'images.css']);
-	return gulp.src([config.dest + '/**/*.css'])
+	var filterUncss = $.filter(['**/*', '!ignored.css'], {restore: true});
+	var filterMain = $.filter(['**/*', '!images.css'], {restore: true});
+	var filterImages = $.filter(['!**/*', 'images.css'], {restore: true});
+	
+	var result = gulp.src([config.dest + '/**/*.css'])
 		.pipe($.size({
 			title: 'styles:min    - before '
-		}))
+		}));
 
-	/// remove unused css - uncss
-	.pipe(filterUncss)
-		.pipe($.size({
-			title: 'styles:uncss  - before '
-		}))
-		.pipe($.uncss({
-			html: config.uncss.html,
-			ignore: config.uncss.ignore,
-			timeout: config.uncss.timeout
-		}))
-		.pipe($.size({
-			title: 'styles:uncss  - after  '
-		}))
-		.pipe(filterUncss.restore())
+	if (config.uncss) {
+		/// remove unused css - uncss
+		 result = result.pipe(filterUncss)
+			.pipe($.size({
+				title: 'styles:uncss  - before '
+			}))
+			.pipe($.uncss({
+				html: config.uncss.html,
+				ignore: config.uncss.ignore,
+				timeout: config.uncss.timeout
+			}))
+			.pipe($.size({
+				title: 'styles:uncss  - after  '
+			}))
+			.pipe(filterUncss.restore);
+	}
 
 	/// convert all images to base64
-	.pipe($.size({
+	result = result.pipe($.size({
 			title: 'styles:base64 - before '
 		}))
 		.pipe($.base64({
@@ -86,7 +95,7 @@ gulp.task('styles:min', function() {
 		.pipe($.size({
 			title: 'styles:concat - main   '
 		}))
-		.pipe(filterMain.restore())
+		.pipe(filterMain.restore)
 
 	// concat images into images.min.css
 	.pipe(filterImages)
@@ -95,13 +104,15 @@ gulp.task('styles:min', function() {
 		.pipe($.size({
 			title: 'styles:concat - images '
 		}))
-		.pipe(filterImages.restore())
+		.pipe(filterImages.restore)
 
 	.pipe($.size({
 		title: 'styles:min    - after  '
 	}))
 
 	.pipe(gulp.dest(config.dest));
+	
+	return result;
 });
 
 

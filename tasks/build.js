@@ -2,7 +2,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var smith = require('gulp-metalsmith-build');
 
-var config = require('../../../config').gulp.build;
+var config = require('../../../config.js').gulp.build;
 
 var runSequence = require('run-sequence');
 
