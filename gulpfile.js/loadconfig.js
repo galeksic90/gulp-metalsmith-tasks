@@ -44,6 +44,14 @@ var config = {
     srcRoots: {
         scss: 'scss',
         scripts: 'scripts'
+    },
+    serve: {
+        port: 3004,
+        ui: {
+            weinre: {
+
+            }
+        }
     }
 };
 
