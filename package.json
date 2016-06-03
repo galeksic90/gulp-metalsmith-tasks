@@ -1,6 +1,6 @@
 {
   "name": "gulp-metalsmith-tasks",
-  "description": "Gulp tasks for metalsmith",  
+  "description": "Gulp tasks for metalsmith",
   "author": {
     "email": "goranaleksic@me.com",
     "name": "Goran Aleksic"
@@ -27,20 +27,27 @@
       "name": "Dr. Sinisa"
     }
   ],
-  "readme": "ERROR: No README data found!",
+  "license": "Apache-1.7",
+  "readme": "README.md",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hivearts/gulp-metalsmith-tasks.git"
-  },  
+  },
   "bugs": {
     "url": "https://github.com/hivearts/gulp-metalsmith-tasks/issues"
   },
   "dependencies": {
     "bower": "^1.7.9",
-    "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0"
+    "del": "^2.2.0",
+    "fs-extra": "^0.30.0",
+    "gulp": "git+https://git@github.com/gulpjs/gulp.git#4.0",
+    "gulp-util": "^3.0.7",
+    "lodash": "^4.13.1",
+    "minimist": "^1.2.0",
+    "yamljs": "^0.2.7"
   },
   "devDependencies": {},
-  "optionalDependencies": {},  
+  "optionalDependencies": {},
   "directories": {},
   "engines": {
     "node": "^6.1.0",

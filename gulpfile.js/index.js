@@ -1,6 +1,14 @@
 // ==== GULPFILE ==== //
 
-// This configuration follows the modular design of the `gulp-starter` project by Dan Tello: https://github.com/greypants/gulp-starter
-// Explore `tasks` for more...
+var requireDir = require('require-dir');
+gulp = require('gulp');
+gulp.gutil = require('gulp-util');
+gulp.config = require('./loadconfig');
 
-console.log('GULP');
+requireDir('./tasks/global'); //tasks which don't depend on project/config
+
+if (gulp.config.isLoaded) {
+    requireDir('./tasks');
+}
+
+
