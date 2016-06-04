@@ -46,12 +46,10 @@ var config = {
         scripts: 'scripts'
     },
     serve: {
-        port: 3004,
-        ui: {
-            weinre: {
-
-            }
-        }
+        php: {
+            port: 8000
+        },
+        port: 3000
     }
 };
 
