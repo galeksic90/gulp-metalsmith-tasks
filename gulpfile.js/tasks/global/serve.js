@@ -17,7 +17,6 @@ gulp.task('serve:wordpress', function() {
     };
 
     connect.server(phpServerOptions, function (){
-        console.log('serve');
         browserSync(browserSyncOptions);
     });
 

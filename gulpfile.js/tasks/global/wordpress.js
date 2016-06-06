@@ -1,5 +1,6 @@
 
 var fs = require('fs-extra');
+var path = require('path');
 
 var composerJson = {
     "repositories": [
@@ -54,7 +55,33 @@ gulp.task('wordpress:reset', gulp.series('wordpress:remove', 'wordpress:install'
 gulp.task('wordpress:fix301', function(cb) {
     var code = "\ndefine('WP_HOME','http://localhost:" + gulp.config.serve.php.port + "');\ndefine('WP_SITEURL','http://localhost:" + gulp.config.serve.php.port + "');\n";
     fs.appendFile(wpDir + '/public/wp-config.php', code, function() {
-        gulp.log(code + gulp.gutil.colors.magenta(' >> wp-config.php'));
+        gulp.log(code + gulp.plugins.util.colors.magenta(' >> wp-config.php'));
         cb();
     });
 });
+
+function makeThemeLink(from, cb) {
+    var srcDir = path.join(gulp.config.projectDir, from);
+    var dstDir = path.join(wpDir, 'public', 'wp-content', 'themes', gulp.config.projectDirName);
+
+    fs.unlink(dstDir, function() {
+        fs.ensureSymlink(srcDir, dstDir, function(err) {
+            if (err) {
+                gulp.logError(err);
+            } else {
+                cb();
+            }
+        })
+    });
+}
+
+if (gulp.config.isLoaded) {
+
+    gulp.task('wordpress:link', function(cb) {
+        makeThemeLink(gulp.config.roots.build, cb);
+    });
+
+    gulp.task('wordpress:link-dist', function(cb) {
+        makeThemeLink(gulp.config.roots.dist, cb);
+    });
+}

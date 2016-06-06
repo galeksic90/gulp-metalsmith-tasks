@@ -1,10 +1,13 @@
 
 var util = require('util');
 
-gulp.log = gulp.gutil.log;
+gulp.log = gulp.plugins.util.log;
 gulp.logError = function(msg) {
-    gulp.log(gulp.gutil.colors.red('error: ' + msg));
-}
+    if (msg && msg.message) {
+        msg = msg.message;
+    }
+    gulp.log(gulp.plugins.util.colors.red('error: ' + msg));
+};
 
 
 gulp.requireArgv = function(k, cb) {
@@ -14,7 +17,7 @@ gulp.requireArgv = function(k, cb) {
         process.exit(1);
     }
     return gulp.config.argv[k];
-}
+};
 
 
 gulp.task('showconfig', function(cb) {

@@ -19,6 +19,7 @@ var YAML = require('yamljs');
 var _ = require('lodash');
 var gutil = require('gulp-util');
 var argv = require('minimist')(process.argv.slice(2));
+var tildify = require('tildify');
 
 var startDir = process.env.INIT_CWD;
 var gulpDir = process.cwd();
@@ -38,18 +39,56 @@ var config = {
     roots: {
         src: 'src',
         build: 'build',
-        serve: 'serve',
         dist: 'dist'
     },
     srcRoots: {
         scss: 'scss',
-        scripts: 'scripts'
+        styles: 'styles',
+        scripts: 'scripts',
+        layouts: 'layouts',
+        content: 'content',
+        static: 'static',
+        imgs: 'imgs'
     },
     serve: {
         php: {
             port: 8000
         },
         port: 3000
+    },
+    images: {
+        min: {
+            optimizationLevel: 7,
+            progressive: true,
+            interlaced: true
+        },
+        unretina: {
+            lwip: true
+        },
+        base64: {
+            options: {
+                maxImageSize: 14 * 1024
+            }
+        }
+    },
+    styles: {
+        includes: ['/bower_components', '/node_modules', '/src/scss/1-Settings', '/src/scss/2-Tools', '/src/scss/3-Generic', '/src/scss/4-Base', '/src/scss/5-Objects', '/src/scss/6-Components', '/src/scss/7-Trumps'],
+        processors: {
+            autoprefixer: [
+                'ie >= 10',
+                'ie_mob >= 10',
+                'ff >= 30',
+                'chrome >= 34',
+                'safari >= 7',
+                'opera >= 23',
+                'ios >= 7',
+                'android >= 4.4',
+                'bb >= 10'
+            ],
+            cssnano: {
+                safe: true
+            }
+        }
     }
 };
 
@@ -65,7 +104,7 @@ function tryRead(filename, logErrors) {
         err = true;
     }
     if (!err) {
-        gutil.log('Loaded config file', gutil.colors.green(filename));
+        gutil.log('Loaded config file', gutil.colors.green(tildify(filename)));
         content = YAML.parse(content);
     }
     return content;
@@ -135,6 +174,7 @@ function fixProjectDir (baseDir){
 function extendConfig(baseDir, filename, content) {
     config.isLoaded = true;
     config.projectDir = fixProjectDir(baseDir);
+    config.projectDirName = config.projectDir.split(path.sep).pop();
     config.configFilename = filename;
     _.merge(config, content);
 
