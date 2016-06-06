@@ -1,5 +1,7 @@
 
 var util = require('util');
+var fs = require('fs');
+var YAML = require('yamljs');
 
 gulp.log = gulp.plugins.util.log;
 gulp.logError = function(msg) {
@@ -25,3 +27,20 @@ gulp.task('showconfig', function(cb) {
     cb();
 });
 
+gulp.task('exportconfig', function(cb) {
+    if (!gulp.config.isLoaded) {
+        gulp.logError(' no project loaded!');
+        cb();
+        process.exit(1);
+    }
+    var fn = gulp.config.projectDir + '/config/exportedConfig.yml';
+    var data = YAML.stringify(gulp.config);
+    fs.writeFile(fn, data, function(err) {
+        if (!err) {
+            gulp.log('Config exported to ' + fn);
+        } else {
+            gulp.logError(err);
+        }
+        cb();
+    });
+});

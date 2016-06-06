@@ -93,15 +93,8 @@ var config = {
         }
     },
     scripts: {
-        vendors: [
-            '/bower_components/jquery/dist/jquery.js'
-        ],
-        plugins: [
-            '/bower_components/slick-carousel/slick/slick.js',
-            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
-            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
-            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js'
-        ],
+        vendors: [],
+        plugins: [],
         project: [
             '/src/scripts/**/*.js'
         ],

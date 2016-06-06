@@ -6,9 +6,8 @@ function copyScripts(chunkName, subDir) {
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
 
     return gulp.src(gulp.config.scripts[chunkName], {root: gulp.config.projectDir})
-        //.pipe(gulp.plugins.debug())
         .pipe(gulp.dest(path.join(dstDir, subDir)))
-        .pipe(gulp.plugins.debug());
+        //.pipe(gulp.plugins.debug());
 }
 
 
@@ -62,6 +61,13 @@ gulp.task('scripts:inject', function() {
 
 gulp.task('scripts:inject-min', function() {
     return injectScripts(['/' + path.join(gulp.config.roots.build, gulp.config.srcRoots.scripts, gulp.config.scripts.minify.dest)]);
+});
+
+// Lint JavaScript
+gulp.task('scripts:jshint', function() {
+    return gulp.src([path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + '/*.js', '!**.min.js'])
+        .pipe(gulp.plugins.jshint())
+        .pipe(gulp.plugins.jshint.reporter('jshint-stylish'))
 });
 
 
