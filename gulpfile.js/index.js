@@ -11,6 +11,8 @@ requireDir('./tasks/global'); //tasks which don't depend on project/config
 
 if (gulp.config.isLoaded) {
     requireDir('./tasks');
+
+    gulp.task('build', gulp.series('build:clean', 'build:static', 'content:copy', 'layouts:copy', 'styles:scss', 'styles:inject', 'images', 'scripts'));
 }
 
 

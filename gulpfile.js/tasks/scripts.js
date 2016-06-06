@@ -47,11 +47,11 @@ function injectScripts (scripts) {
             read: false,
             root: gulp.config.projectDir
         })
-        .pipe(gulp.dest(dstDir, {cwd: ignorePath}))
-        .pipe(gulp.plugins.print());
+        .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
+        //.pipe(gulp.plugins.print());
 
     return gulp.src(layoutsDir + '/**/*.jade')
-        .pipe(gulp.plugins.inject(sources), {quiet: true})
+        .pipe(gulp.plugins.inject(sources, {quiet: true}))
         .pipe(gulp.dest(layoutsDir));
 }
 
@@ -71,4 +71,4 @@ gulp.task('scripts:jshint', function() {
 });
 
 
-gulp.task('scripts', gulp.series('scripts:copy-vendors', 'scripts:copy-plugins', 'scripts:copy-project'));
+gulp.task('scripts', gulp.series('scripts:copy-vendors', 'scripts:copy-plugins', 'scripts:copy-project', 'scripts:inject'));

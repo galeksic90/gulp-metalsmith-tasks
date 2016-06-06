@@ -49,7 +49,7 @@ gulp.task('styles:inject', function() {
         //.pipe(gulp.plugins.debug());
 
     return gulp.src(layoutsDir + '/**/*.jade')
-        .pipe(gulp.plugins.inject(sources), { quiet: true })
+        .pipe(gulp.plugins.inject(sources, {quiet: true}))
         .pipe(gulp.dest(layoutsDir));
 });
 

@@ -15,4 +15,3 @@ gulp.task('build:static', function(cb) {
     fs.copy(srcDir, dstDir, cb);
 });
 
-gulp.task('build', gulp.series('build:clean', 'build:static'));
