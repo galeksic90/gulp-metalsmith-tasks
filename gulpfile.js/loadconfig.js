@@ -45,6 +45,8 @@ var config = {
         scss: 'scss',
         styles: 'styles',
         scripts: 'scripts',
+        scriptsVendors: 'scripts/vendors',
+        scriptsPlugins: 'scripts/plugins',
         layouts: 'layouts',
         content: 'content',
         static: 'static',
@@ -88,6 +90,24 @@ var config = {
             cssnano: {
                 safe: true
             }
+        }
+    },
+    scripts: {
+        vendors: [
+            '/bower_components/jquery/dist/jquery.js'
+        ],
+        plugins: [
+            '/bower_components/slick-carousel/slick/slick.js',
+            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js',
+            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js',
+            '/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js'
+        ],
+        project: [
+            '/src/scripts/**/*.js'
+        ],
+        minify: {
+            uglify: {},
+            dest: 'scripts.min.js'
         }
     }
 };

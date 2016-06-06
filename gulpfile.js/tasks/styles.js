@@ -34,3 +34,43 @@ gulp.task('styles:scss', function() {
 
 
 
+//
+// Inject all style files
+//
+
+gulp.task('styles:inject', function() {
+    var layoutsDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
+    var styles = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build, gulp.config.srcRoots.styles) + '/*.css';
+    var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
+    var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles);
+
+    var sources = gulp.src(styles, {read: false})
+        .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
+        //.pipe(gulp.plugins.debug());
+
+    return gulp.src(layoutsDir + '/**/*.jade')
+        .pipe(gulp.plugins.inject(sources), { quiet: true })
+        .pipe(gulp.dest(layoutsDir));
+});
+
+//
+// CSS & SCSS Tests
+//
+
+gulp.task('styles:csslint', function() {
+    var cssDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles);
+
+    return gulp.src(cssDir + '/**/*.css')
+        .pipe(gulp.plugins.csslint())
+        .pipe(gulp.plugins.csslint.reporter());
+});
+
+gulp.task('styles:scsslint', function() {
+    var scssDir = path.join(gulp.config.projectDir, gulp.config.roots.src, gulp.config.srcRoots.scss);
+
+    return gulp.src(scssDir + '/**/*.scss')
+        .pipe(gulp.plugins.sassLint())
+        .pipe(gulp.plugins.sassLint.format());
+        //.pipe(gulp.plugins.sassLint.failOnError());
+});
+
