@@ -17,7 +17,7 @@ var msFunc = function(cb) {
         console.log(arguments);
         cb();
     });
-}
+};
 
 gulp.task('layouts:metalsmith',msFunc);
 gulp.task('layouts:ms', msFunc);
@@ -32,7 +32,7 @@ var jadeFunc = function(plugin, filter, options) {
         //.pipe(gulp.plugins.print())
         .pipe(plugin(options))
         .pipe(gulp.dest(dstDir));
-}
+};
 
 gulp.task('layouts:jade', function() {
     return jadeFunc(gulp.plugins.jade, gulp.config.layouts.jade.filter, gulp.config.layouts.jade.options);
@@ -46,4 +46,19 @@ gulp.task('layouts:jadephp', function() {
     return jadeFunc(gulp.plugins.jadePhp, gulp.config.layouts.jadephp.filter, gulp.config.layouts.jadephp.options);
 });
 
-gulp.task('layouts', gulp.series('layouts:copy', 'layouts:jade'));
+
+gulp.task('layouts:htmlsplit', function() {
+    var srcDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
+    var source = srcDir + gulp.config.layouts.htmlsplit.src;
+
+    return gulp.src(source)
+        .pipe(gulp.plugins.debug())
+        .pipe(gulp.plugins.htmlsplit(gulp.config.layouts.htmlsplit.options))
+        .pipe(gulp.plugins.debug())
+        .pipe(gulp.dest(srcDir));
+});
+
+
+
+gulp.task('layouts', gulp.series('layouts:copy', 'layouts:' + gulp.config.layouts.engine, 'layouts:htmlsplit'));
+
