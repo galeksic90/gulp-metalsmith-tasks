@@ -2,7 +2,7 @@
 
 
 gulp = require('gulp');
-gulp.config = require('./loadconfig');
+gulp.config = require('./../lib/loadconfig');
 gulp.plugins = require('gulp-load-plugins')({ camelize: true });
 
 var requireDir = require('require-dir');
