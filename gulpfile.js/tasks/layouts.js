@@ -38,6 +38,12 @@ gulp.task('layouts:jade', function() {
     return jadeFunc(gulp.plugins.jade, gulp.config.layouts.jade.filter, gulp.config.layouts.jade.options);
 });
 
+gulp.task('layouts:pug', function() {
+    return jadeFunc(gulp.plugins.pug, gulp.config.layouts.pug.filter, gulp.config.layouts.pug.options);
+});
+
 gulp.task('layouts:jadephp', function() {
     return jadeFunc(gulp.plugins.jadePhp, gulp.config.layouts.jadephp.filter, gulp.config.layouts.jadephp.options);
 });
+
+gulp.task('layouts', gulp.series('layouts:copy', 'layouts:jade'));

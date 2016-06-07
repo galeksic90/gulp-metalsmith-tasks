@@ -12,3 +12,4 @@ gulp.task('content:copy', function() {
     return gulp.src(source).pipe(gulp.dest(dstDir));
 });
 
+gulp.task('content', gulp.series('content:copy'));
