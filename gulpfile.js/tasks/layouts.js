@@ -52,13 +52,25 @@ gulp.task('layouts:htmlsplit', function() {
     var source = srcDir + gulp.config.layouts.htmlsplit.src;
 
     return gulp.src(source)
-        .pipe(gulp.plugins.debug())
+        //.pipe(gulp.plugins.debug())
         .pipe(gulp.plugins.htmlsplit(gulp.config.layouts.htmlsplit.options))
-        .pipe(gulp.plugins.debug())
+        //.pipe(gulp.plugins.debug())
+        .pipe(gulp.dest(srcDir));
+});
+
+gulp.task('layouts:processhtml', function() {
+    var srcDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
+    var source = srcDir + gulp.config.layouts.processhtml.src;
+
+    return gulp.src(source)
+        //.pipe(gulp.plugins.debug())
+        .pipe(gulp.plugins.processhtml(gulp.config.layouts.processhtml.options))
+        //.pipe(gulp.plugins.debug())
+        //.pipe(gulp.plugins.processhtml())
+        //.pipe(gulp.plugins.debug())
         .pipe(gulp.dest(srcDir));
 });
 
 
-
-gulp.task('layouts', gulp.series('layouts:copy', 'layouts:' + gulp.config.layouts.engine, 'layouts:htmlsplit'));
+gulp.task('layouts', gulp.series('layouts:copy', 'layouts:' + gulp.config.layouts.engine, 'layouts:processhtml', 'layouts:htmlsplit'));
 

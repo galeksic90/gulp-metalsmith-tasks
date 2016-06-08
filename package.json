@@ -62,6 +62,7 @@
     "gulp-lwip": "https://github.com/dsinisa/gulp-lwip.git",
     "gulp-postcss": "^6.1.1",
     "gulp-print": "^2.0.1",
+    "gulp-processhtml": "^1.1.0",
     "gulp-pug": "^3.0.3",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.1",
