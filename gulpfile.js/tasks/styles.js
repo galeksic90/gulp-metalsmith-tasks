@@ -50,6 +50,7 @@ gulp.task('styles:inject', function() {
 
     return gulp.src(layoutsDir + '/**/*.jade')
         .pipe(gulp.plugins.inject(sources, {quiet: true}))
+        //.pipe(gulp.plugins.debug())
         .pipe(gulp.dest(layoutsDir));
 });
 

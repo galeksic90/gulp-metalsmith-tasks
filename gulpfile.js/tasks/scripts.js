@@ -1,6 +1,7 @@
 
 var path = require('path');
 
+var sources = [].concat(gulp.config.scripts.vendors, gulp.config.scripts.plugins, gulp.config.scripts.project);
 
 function copyScripts(chunkName, subDir) {
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
@@ -24,15 +25,16 @@ gulp.task('scripts:copy-project', function() {
 });
 
 
-
-// Minify scripts in place
-gulp.task('scripts:minify', function(){
+// Copy from source and minify-concat scripts
+gulp.task('scripts:min', function(){
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts);
 
-    return gulp.src(dstDir + '/**/*.js')
+
+     return gulp.src(sources, {root: gulp.config.projectDir})
+         //.pipe(gulp.plugins.debug())
         .pipe(gulp.plugins.sourcemaps.init())
-        .pipe(gulp.plugins.uglify(gulp.config.scripts.minify.uglify))
         .pipe(gulp.plugins.concat(gulp.config.scripts.minify.dest))
+        .pipe(gulp.plugins.uglify(gulp.config.scripts.minify.uglify))
         .pipe(gulp.plugins.sourcemaps.write('./'))
         .pipe(gulp.dest(dstDir));
 });
@@ -56,7 +58,7 @@ function injectScripts (scripts) {
 }
 
 gulp.task('scripts:inject', function() {
-    return injectScripts([].concat(gulp.config.scripts.vendors,gulp.config.scripts.plugins,gulp.config.scripts.project));
+    return injectScripts(sources);
 });
 
 gulp.task('scripts:inject-min', function() {
@@ -70,5 +72,9 @@ gulp.task('scripts:jshint', function() {
         .pipe(gulp.plugins.jshint.reporter('jshint-stylish'))
 });
 
+var series = ['scripts:copy-vendors', 'scripts:copy-plugins', 'scripts:copy-project', 'scripts:inject'];
+if (gulp.config.scripts.minify.inBuild) {
+    series = ['scripts:min', 'scripts:inject-min'];
+}
 
-gulp.task('scripts', gulp.series('scripts:copy-vendors', 'scripts:copy-plugins', 'scripts:copy-project', 'scripts:inject'));
+gulp.task('scripts', gulp.series(series));
