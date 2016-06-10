@@ -14,7 +14,9 @@ gulp.task('serve:wordpress', function() {
 
     var browserSyncOptions = {
         proxy: '127.0.0.1:' + gulp.config.serve.php.port,
-        port: gulp.config.serve.port
+        port: gulp.config.serve.port,
+        files: [path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles) + path.sep + '**/*.css',
+                path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + path.sep + '**/*.js']
     };
 
     connect.server(phpServerOptions, function (){
