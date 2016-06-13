@@ -54,12 +54,30 @@ function injectScripts () {
         .pipe(gulp.dest(layoutsDir));
 }
 
+function injectScripts2 (scripts) {
+    var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts);
+    var layoutsDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
+
+    var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
+
+    var sources = gulp.src(scripts, {
+            read: false,
+            root: gulp.config.projectDir
+        })
+        .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
+    //.pipe(gulp.plugins.print());
+
+    return gulp.src(layoutsDir + '/**/*.jade')
+        .pipe(gulp.plugins.inject(sources, {quiet: true}))
+        .pipe(gulp.dest(layoutsDir));
+}
+
 gulp.task('scripts:inject', function() {
     return injectScripts();
 });
 
 gulp.task('scripts:inject-min', function() {
-    return injectScripts(['/' + path.join(gulp.config.roots.build, gulp.config.srcRoots.scripts, gulp.config.scripts.minify.dest)]);
+    return injectScripts2(['/' + path.join(gulp.config.roots.build, gulp.config.srcRoots.scripts, gulp.config.scripts.minify.dest)]);
 });
 
 // Lint JavaScript
