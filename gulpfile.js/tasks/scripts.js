@@ -8,6 +8,7 @@ function copyScripts(chunkName, subDir) {
 
     return gulp.src(gulp.config.scripts[chunkName], {root: gulp.config.projectDir})
         .pipe(gulp.dest(path.join(dstDir, subDir)))
+        .pipe(gulp.plugins.filenames("scripts"))
         //.pipe(gulp.plugins.debug());
 }
 
@@ -39,26 +40,22 @@ gulp.task('scripts:min', function(){
         .pipe(gulp.dest(dstDir));
 });
 
-function injectScripts (scripts) {
-    var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts);
+function injectScripts () {
     var layoutsDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
-
     var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
 
-    var sources = gulp.src(scripts, {
-            read: false,
-            root: gulp.config.projectDir
+    var files = gulp.src(gulp.plugins.filenames.get("scripts", "full"), {
+            read: false
         })
-        .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
-        //.pipe(gulp.plugins.print());
+        .pipe(gulp.plugins.print());
 
     return gulp.src(layoutsDir + '/**/*.jade')
-        .pipe(gulp.plugins.inject(sources, {quiet: true}))
+        .pipe(gulp.plugins.inject(files, {quiet: false, ignorePath: ignorePath}))
         .pipe(gulp.dest(layoutsDir));
 }
 
 gulp.task('scripts:inject', function() {
-    return injectScripts(sources);
+    return injectScripts();
 });
 
 gulp.task('scripts:inject-min', function() {

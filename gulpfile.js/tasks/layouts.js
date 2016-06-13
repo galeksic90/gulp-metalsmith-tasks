@@ -14,7 +14,6 @@ gulp.task('layouts:copy', function() {
 
 var msFunc = function(cb) {
     metalsmith_task.build(path.join(gulp.config.projectDir, gulp.config.roots.build), gulp.config.layouts.metalsmith, function () {
-        console.log(arguments);
         cb();
     });
 };
@@ -72,5 +71,5 @@ gulp.task('layouts:processhtml', function() {
 });
 
 
-gulp.task('layouts', gulp.series('layouts:copy', 'layouts:' + gulp.config.layouts.engine, 'layouts:processhtml', 'layouts:htmlsplit'));
+gulp.task('layouts', gulp.series('layouts:' + gulp.config.layouts.engine, 'layouts:processhtml', 'layouts:htmlsplit'));
 

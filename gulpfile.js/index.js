@@ -16,7 +16,7 @@ gulp.task('default', function(cb) {
 if (gulp.config.isLoaded) {
     requireDir('./tasks');
 
-    gulp.task('rebuild', gulp.series('build', 'content', 'layouts', 'styles' , 'images', 'scripts'));
+    gulp.task('rebuild', gulp.series('build', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
     gulp.task('default', gulp.series('rebuild', 'serve'));
 }
