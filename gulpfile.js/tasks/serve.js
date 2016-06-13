@@ -33,7 +33,8 @@ gulp.task('serve:site', function() {
             path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + path.sep + '**/*.js'],
         server: {
             baseDir: path.join(gulp.config.projectDir, gulp.config.serve.baseDir)
-        }
+        },
+        open: gulp.config.serve.open
     };
 
     browserSync(browserSyncOptions);
