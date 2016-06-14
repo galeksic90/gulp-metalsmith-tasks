@@ -24,14 +24,14 @@ gulp.task('images:compress', function() {
 gulp.task('images:retina', function() {
 
     var buildDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.imgs);
-    var source = buildDir + '/**/*@2x.{jpg,png}';
+    var source = buildDir + '/**/*_2x.{jpg,png}';
 
     if (gulp.config.images.unretina.lwip) {
 
         return gulp.src(source)
             .pipe(gulp.plugins.lwip.scale(.5))
             .pipe(gulp.plugins.rename(function (path) {
-                path.basename = path.basename.replace(/@2x/, '');
+                path.basename = path.basename.replace(/_2x/, '');
             }))
             .pipe(gulp.dest(buildDir));
     }
