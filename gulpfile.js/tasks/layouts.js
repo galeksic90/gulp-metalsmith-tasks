@@ -14,7 +14,8 @@ gulp.task('layouts:copy', function() {
 
 var msFunc = function(cb) {
     metalsmith_task.build(path.join(gulp.config.projectDir, gulp.config.roots.build), gulp.config.layouts.metalsmith, function (err, result) {
-        console.log('MS', err, result);
+        if (err)
+            console.log(err);
         cb();
     });
 };
