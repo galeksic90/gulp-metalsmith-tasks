@@ -16,11 +16,11 @@ gulp.task('default', function(cb) {
 if (gulp.config.isLoaded) {
     requireDir('./tasks');
 
-    gulp.task('rebuild', gulp.series('build', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
+    gulp.task('rebuild:full', gulp.series('build', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
-    gulp.task('dist', gulp.series('rebuild', 'dist:clean', 'dist:copy', 'dist:configs'));
+    gulp.task('rebuild', gulp.series('build:static', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
-    gulp.task('default', gulp.series('rebuild', 'serve'));
+    gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'dist:configs'));
+
+    gulp.task('default', gulp.series('rebuild:full', 'serve'));
 }
-
-

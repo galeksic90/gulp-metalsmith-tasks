@@ -72,4 +72,3 @@ gulp.task('layouts:processhtml', function() {
 
 
 gulp.task('layouts', gulp.series('layouts:' + gulp.config.layouts.engine, 'layouts:processhtml', 'layouts:htmlsplit'));
-
