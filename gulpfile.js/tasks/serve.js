@@ -53,9 +53,9 @@ gulp.task('serve:watch', function () {
     gulp.watch([srcDir + gulp.config.srcRoots.imgs + '/**/*'], gulp.series(['images']));
     gulp.watch([srcDir + gulp.config.srcRoots.scripts + '/**/*.js'], gulp.series(['scripts']));
     gulp.watch([srcDir + gulp.config.srcRoots.scss + '/**/*.scss'], gulp.series(['styles']));
-    gulp.watch([srcDir + gulp.config.srcRoots.layouts + '/**/*.jade'], gulp.parallel(['rebuild', 'serve:reload']));
-    gulp.watch([srcDir + gulp.config.srcRoots.content + '/**/*.md'], gulp.parallel(['rebuild', 'serve:reload']));
-    gulp.watch([srcDir + gulp.config.srcRoots.static + '/**/*'], gulp.parallel(['build:static', 'serve:reload']));
+    gulp.watch([srcDir + gulp.config.srcRoots.layouts + '/**/*.jade'], gulp.series(['rebuild', 'serve:reload']));
+    gulp.watch([srcDir + gulp.config.srcRoots.content + '/**/*.md'], gulp.series(['rebuild', 'serve:reload']));
+    gulp.watch([srcDir + gulp.config.srcRoots.static + '/**/*'], gulp.series(['build:static', 'serve:reload']));
 });
 
 gulp.task('serve', gulp.parallel('serve:watch', 'serve:' + gulp.config.serve.mode));

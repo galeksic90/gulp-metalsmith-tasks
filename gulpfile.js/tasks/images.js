@@ -11,7 +11,7 @@ gulp.task('images:copy', function() {
 
 
 // Optimize Images files in build dir
-gulp.task('images:min', function() {
+gulp.task('images:compress', function() {
     var buildDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.imgs);
     var source = buildDir + '/**/*(*.png|*.jpg|*.jpeg|*.gif|*.svg)';
 
@@ -54,4 +54,5 @@ gulp.task('images:base64', function() {
 });
 
 
-gulp.task('images', gulp.series('images:copy', 'images:min', 'images:retina', 'images:base64'));
+gulp.task('images', gulp.series('images:copy', 'images:retina'));
+gulp.task('images:min', gulp.series('images:copy', 'images:compress', 'images:retina', 'images:base64'));
