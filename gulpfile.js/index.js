@@ -18,6 +18,8 @@ if (gulp.config.isLoaded) {
 
     gulp.task('rebuild', gulp.series('build', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
+    gulp.task('dist', gulp.series('rebuild', 'dist:clean', 'dist:copy', 'dist:configs'));
+
     gulp.task('default', gulp.series('rebuild', 'serve'));
 }
 
