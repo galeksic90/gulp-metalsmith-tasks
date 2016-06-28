@@ -22,7 +22,7 @@ if (gulp.config.isLoaded) {
 
     gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'dist:configs'));
 
-    if (gulp.config.nodemon) {
+    if (gulp.config.nodemon.script) {
         gulp.task('default', gulp.series('rebuild:full', gulp.parallel('nodemon', 'serve')));
     } else {
         gulp.task('default', gulp.series('rebuild:full', 'serve'));
