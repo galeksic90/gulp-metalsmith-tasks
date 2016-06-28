@@ -25,17 +25,40 @@ gulp.task('serve:wordpress', function() {
 
 });
 
+gulp.task('serve:proxy', function() {
+
+
+
+    browserSync(browserSyncOptions);
+});
+
+
 gulp.task('serve:site', function() {
 
-    var browserSyncOptions = {
-        port: gulp.config.serve.port,
-        files: [path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles) + path.sep + '**/*.css',
-            path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + path.sep + '**/*.js'],
-        server: {
-            baseDir: path.join(gulp.config.projectDir, gulp.config.serve.baseDir)
-        },
-        open: gulp.config.serve.open
-    };
+    var browserSyncOptions;
+
+    if (gulp.config.serve.proxy) {
+
+        browserSyncOptions = {
+            proxy: '127.0.0.1:' + gulp.config.serve.proxy.port,
+            port: gulp.config.serve.port,
+            files: [path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles) + path.sep + '**/*.css',
+                path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + path.sep + '**/*.js']
+        };
+
+    } else {
+
+        browserSyncOptions = {
+            port: gulp.config.serve.port,
+            files: [path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles) + path.sep + '**/*.css',
+                path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts) + path.sep + '**/*.js'],
+            server: {
+                baseDir: path.join(gulp.config.projectDir, gulp.config.serve.baseDir)
+            },
+            open: gulp.config.serve.open
+        };
+
+    }
 
     browserSync(browserSyncOptions);
 
