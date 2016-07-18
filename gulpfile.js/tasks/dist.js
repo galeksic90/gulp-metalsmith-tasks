@@ -12,6 +12,12 @@ gulp.task('dist:clean', function(cb) {
 gulp.task('dist:copy', function(cb) {
     var buildDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
     var distDir = path.join(gulp.config.projectDir, gulp.config.roots.dist);
+
+    if (!distDir) {
+        cb();
+        return;
+    }
+
     var pubDir = distDir;
     if (gulp.config.dist.public) {
         pubDir = path.join(distDir, gulp.config.dist.public);
@@ -33,7 +39,9 @@ gulp.task('dist:copy', function(cb) {
 
 gulp.task('dist:configs', function(cb) {
     if (gulp.config.dist.makeConfig)
-    fs.writeFile(path.join(gulp.config.projectDir, gulp.config.roots.dist, gulp.config.dist.makeConfig), JSON.stringify(gulp.config.dist.configData, null, 4), cb);
+        fs.writeFile(path.join(gulp.config.projectDir, gulp.config.roots.dist, gulp.config.dist.makeConfig), JSON.stringify(gulp.config.dist.configData, null, 4), cb);
+    else
+        cb();
 });
 
 

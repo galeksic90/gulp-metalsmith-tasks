@@ -22,6 +22,11 @@ if (gulp.config.isLoaded) {
 
     gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'dist:configs'));
 
+    gulp.task('deploy:patch', gulp.series('dist', 'tag:patch', 'git:init-dist', 'git:push'));
+    gulp.task('deploy:feature', gulp.series('dist', 'tag:feature', 'git:init-dist', 'git:push'));
+    gulp.task('deploy:release', gulp.series('dist', 'tag:release', 'git:init-dist', 'git:push'));
+
+
     if (gulp.config.nodemon.script) {
         gulp.task('default', gulp.series('rebuild:full', gulp.parallel('nodemon', 'serve')));
     } else {
