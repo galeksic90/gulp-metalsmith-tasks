@@ -15,4 +15,30 @@ gulp.task('build:static', function(cb) {
     fs.copy(srcDir, dstDir, cb);
 });
 
+gulp.task('build:sitemap', function(cb) {
+    var buildSrc = path.join(gulp.config.projectDir, gulp.config.roots.build, '**/*.html');
+    var distDir = path.join(gulp.config.projectDir, gulp.config.roots.dist);
+
+    if (!distDir) {
+        cb();
+        return;
+    }
+
+    var pubDir = distDir;
+    if (gulp.config.dist.public) {
+        pubDir = path.join(distDir, gulp.config.dist.public);
+    }
+
+    return gulp.src(buildSrc, {
+            read: false
+        })
+        .pipe(gulp.plugins.debug())
+        .pipe(gulp.plugins.sitemap({
+            siteUrl: gulp.config.siteUrl
+        }))
+        .pipe(gulp.dest(pubDir))
+        .pipe(gulp.plugins.debug());
+});
+
+
 gulp.task('build', gulp.series('build:clean', 'build:static'));
