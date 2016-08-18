@@ -7,7 +7,11 @@ var metalsmith_task = require('gulp-metalsmith-server').metalsmith_task;
 gulp.task('layouts:copy', function() {
     var srcDir = path.join(gulp.config.projectDir, gulp.config.roots.src, gulp.config.srcRoots.layouts);
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
-    var source = srcDir + '/**/*.jade';
+    var source;
+    if (gulp.config.layouts.engine == 'pug')
+        source = srcDir + '/**/*.pug';
+    else
+        source = srcDir + '/**/*.jade';
 
     return gulp.src(source).pipe(gulp.dest(dstDir));
 });
@@ -26,7 +30,11 @@ gulp.task('layouts:ms', msFunc);
 var jadeFunc = function(plugin, filter, options) {
     var srcDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build);
-    var source = srcDir + '/**/*.jade';
+    var source;
+    if (gulp.config.layouts.engine == 'pug')
+        source = srcDir + '/**/*.pug';
+    else
+        source = srcDir + '/**/*.jade';
 
     return gulp.src(source)
         .pipe(gulp.plugins.filter(filter))

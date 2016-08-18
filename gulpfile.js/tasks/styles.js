@@ -75,4 +75,4 @@ gulp.task('styles:scsslint', function() {
         //.pipe(gulp.plugins.sassLint.failOnError());
 });
 
-gulp.task('styles', gulp.series('styles:scss', 'styles:inject'));
+gulp.task('styles', gulp.series('styles:scss', 'styles:inject', 'aigis'));
