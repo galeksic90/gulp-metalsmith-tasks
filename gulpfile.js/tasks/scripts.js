@@ -48,8 +48,8 @@ function injectScripts () {
             read: false
         })
         .pipe(gulp.plugins.print());
-
-    return gulp.src(layoutsDir + '/**/*.jade')
+	
+    return gulp.src([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
         .pipe(gulp.plugins.inject(files, {quiet: false, ignorePath: ignorePath}))
         .pipe(gulp.dest(layoutsDir));
 }
@@ -67,7 +67,7 @@ function injectScripts2 (scripts) {
         .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
     //.pipe(gulp.plugins.print());
 
-    return gulp.src(layoutsDir + '/**/*.jade')
+    return gulp.src(([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
         .pipe(gulp.plugins.inject(sources, {quiet: true}))
         .pipe(gulp.dest(layoutsDir));
 }
