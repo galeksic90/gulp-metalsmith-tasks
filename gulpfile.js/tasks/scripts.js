@@ -67,7 +67,7 @@ function injectScripts2 (scripts) {
         .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
     //.pipe(gulp.plugins.print());
 
-    return gulp.src(([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
+    return gulp.src([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
         .pipe(gulp.plugins.inject(sources, {quiet: true}))
         .pipe(gulp.dest(layoutsDir));
 }
