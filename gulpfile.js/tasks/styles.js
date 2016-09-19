@@ -20,7 +20,9 @@ gulp.task('styles:scss', function() {
         }
     }
 
-    return gulp.src(srcDir + '/*.scss')
+    return gulp.src('*.scss', {cwd: srcDir})
+        .pipe(gulp.plugins.sassGlobImport())
+        .pipe(gulp.plugins.debug())
         .pipe(gulp.plugins.sourcemaps.init())
         .pipe(gulp.plugins.sass({includePaths: includes
                         , precision: 6
