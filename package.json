@@ -64,7 +64,7 @@
     "gulp-jshint": "^2.0.1",
     "gulp-load-plugins": "^1.2.4",
     "gulp-lwip": "https://github.com/dsinisa/gulp-lwip.git",
-    "gulp-metalsmith-server": "^0.1.5",
+    "gulp-metalsmith-server": "^0.1.6",
     "gulp-nodemon": "^2.1.0",
     "gulp-postcss": "^6.1.1",
     "gulp-print": "^2.0.1",
