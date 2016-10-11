@@ -29,10 +29,10 @@ gulp.task('scripts:copy-project', function() {
 // Copy from source and minify-concat scripts
 gulp.task('scripts:min', function(){
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.scripts);
-
-
+    
      return gulp.src(sources, {root: gulp.config.projectDir})
          //.pipe(gulp.plugins.debug())
+        .pipe(gulp.plugins.ngAnnotate())
         .pipe(gulp.plugins.sourcemaps.init())
         .pipe(gulp.plugins.concat(gulp.config.scripts.minify.dest))
         .pipe(gulp.plugins.uglify(gulp.config.scripts.minify.uglify))

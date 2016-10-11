@@ -20,7 +20,7 @@ if (gulp.config.isLoaded) {
 
     gulp.task('rebuild', gulp.series('build:static', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
-    gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'build:sitemap', 'dist:configs'));
+    gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'dist:delete', 'build:sitemap', 'dist:configs'));
 
     gulp.task('deploy:patch', gulp.series('dist', 'tag:patch', 'git:init-dist', 'git:push'));
     gulp.task('deploy:feature', gulp.series('dist', 'tag:feature', 'git:init-dist', 'git:push'));
