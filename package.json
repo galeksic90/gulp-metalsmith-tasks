@@ -1,6 +1,10 @@
 {
   "name": "gulp-metalsmith-tasks",
   "description": "Gulp tasks for metalsmith",
+  "main": "index.js",
+  "bin": {
+    "gmtasks": "./bin/gmtasks.js"
+  },
   "author": {
     "email": "goranaleksic@me.com",
     "name": "Goran Aleksic"
@@ -48,6 +52,7 @@
     "gulp-base64": "^0.1.3",
     "gulp-bump": "^2.4.0",
     "gulp-changed": "^1.3.2",
+    "gulp-cli": "^1.2.2",
     "gulp-composer": "^0.4.0",
     "gulp-concat": "^2.6.0",
     "gulp-connect-php": "0.0.8",

@@ -36,9 +36,19 @@ var jadeFunc = function(plugin, filter, options) {
     else
         source = srcDir + '/**/*.jade';
 
-    return gulp.src(source)
-        .pipe(gulp.plugins.filter(filter))
-        //.pipe(gulp.plugins.print())
+    var ar = [source];
+
+    if (filter) {
+        filter.forEach(function(item) {
+            ar.push(item);
+        })
+    }
+
+    console.log(ar);
+
+    return gulp.src(ar)
+        //.pipe(gulp.plugins.filter(filter), {dot: true})
+        .pipe(gulp.plugins.print())
         .pipe(plugin(options))
         .pipe(gulp.dest(dstDir));
 };
