@@ -32,12 +32,12 @@ gulp.task('build:sitemap', function(cb) {
     return gulp.src(buildSrc, {
             read: false
         })
-        .pipe(gulp.plugins.debug())
+        //.pipe(gulp.plugins.debug())
         .pipe(gulp.plugins.sitemap({
             siteUrl: gulp.config.siteUrl
         }))
         .pipe(gulp.dest(pubDir))
-        .pipe(gulp.plugins.debug());
+        //.pipe(gulp.plugins.debug());
 });
 
 

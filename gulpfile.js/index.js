@@ -16,6 +16,11 @@ gulp.task('default', function(cb) {
 if (gulp.config.isLoaded) {
     requireDir('./tasks');
 
+    if (process.env.GULP_PROJECTS_DIR) {
+        process.env.INIT_CWD = gulp.config.projectDir;
+        process.chdir(gulp.config.projectDir);
+    }
+
     gulp.task('rebuild:full', gulp.series('build', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));
 
     gulp.task('rebuild', gulp.series('build:static', 'content', 'layouts:copy', 'styles' , 'images', 'scripts' , 'layouts'));

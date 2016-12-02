@@ -44,13 +44,17 @@ function injectScripts () {
     var layoutsDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
     var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
 
+    if (process.env.GULP_PROJECTS_DIR) {
+        ignorePath = path.join(gulp.config.roots.build);
+    }
+
     var files = gulp.src(gulp.plugins.filenames.get("scripts", "full"), {
             read: false
         })
         .pipe(gulp.plugins.print());
 	
     return gulp.src([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
-        .pipe(gulp.plugins.inject(files, {quiet: false, ignorePath: ignorePath}))
+        .pipe(gulp.plugins.inject(files, {quiet: true, ignorePath: ignorePath}))
         .pipe(gulp.dest(layoutsDir));
 }
 
@@ -59,6 +63,10 @@ function injectScripts2 (scripts) {
     var layoutsDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
 
     var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
+
+    if (process.env.GULP_PROJECTS_DIR) {
+        ignorePath = path.join(gulp.config.roots.build);
+    }
 
     var sources = gulp.src(scripts, {
             read: false,

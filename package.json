@@ -60,6 +60,7 @@
     "gulp-debug": "^2.1.2",
     "gulp-filenames": "^3.0.0",
     "gulp-filter": "^4.0.0",
+    "gulp-filter-by": "^1.2.0",
     "gulp-git": "^1.11.0",
     "gulp-htmlsplit": "^1.1.0",
     "gulp-imagemin": "^3.0.3",

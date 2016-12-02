@@ -51,7 +51,7 @@ gulp.task('dist:delete', function (cb) {
             return path.join(distDir, file);
         });
 
-        return del(list);
+        return del(list, {force: true});
     } else {
         cb();
     }

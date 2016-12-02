@@ -36,19 +36,13 @@ var jadeFunc = function(plugin, filter, options) {
     else
         source = srcDir + '/**/*.jade';
 
-    var ar = [source];
+    var re = new RegExp(filter, 'i');
 
-    if (filter) {
-        filter.forEach(function(item) {
-            ar.push(item);
-        })
-    }
-
-    console.log(ar);
-
-    return gulp.src(ar)
-        //.pipe(gulp.plugins.filter(filter), {dot: true})
-        .pipe(gulp.plugins.print())
+    return gulp.src(source)
+        .pipe(gulp.plugins.filterBy(function(file) {
+            return !re.test(file.path);
+        }))
+        //.pipe(gulp.plugins.print())
         .pipe(plugin(options))
         .pipe(gulp.dest(dstDir));
 };

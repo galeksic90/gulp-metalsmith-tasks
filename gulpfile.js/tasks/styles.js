@@ -22,7 +22,7 @@ gulp.task('styles:scss', function() {
 
     return gulp.src('*.scss', {cwd: srcDir})
         .pipe(gulp.plugins.sassGlobImport())
-        .pipe(gulp.plugins.debug())
+        //.pipe(gulp.plugins.debug())
         .pipe(gulp.plugins.sourcemaps.init())
         .pipe(gulp.plugins.sass({includePaths: includes
                         , precision: 6
@@ -45,6 +45,11 @@ gulp.task('styles:inject', function() {
     var styles = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build, gulp.config.srcRoots.styles) + '/*.css';
     var ignorePath = path.join(gulp.config.projectsDir, gulp.config.projectDirName, gulp.config.roots.build);
     var dstDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.styles);
+
+    if (process.env.GULP_PROJECTS_DIR) {
+        styles = path.join(gulp.config.projectDir,  gulp.config.roots.build, gulp.config.srcRoots.styles) + '/*.css';
+        ignorePath = path.join(gulp.config.projectDir, gulp.config.roots.build);
+    }
 
     var sources = gulp.src(styles, {read: false})
         .pipe(gulp.dest(dstDir, {cwd: ignorePath}));
