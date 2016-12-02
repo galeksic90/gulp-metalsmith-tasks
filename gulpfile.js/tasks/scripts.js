@@ -51,7 +51,7 @@ function injectScripts () {
     var files = gulp.src(gulp.plugins.filenames.get("scripts", "full"), {
             read: false
         })
-        .pipe(gulp.plugins.print());
+        //.pipe(gulp.plugins.print());
 	
     return gulp.src([layoutsDir + '/**/*.jade', layoutsDir + '/**/*.pug'])
         .pipe(gulp.plugins.inject(files, {quiet: true, ignorePath: ignorePath}))
