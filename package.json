@@ -1,16 +1,16 @@
 {
-  "name": "gulp-metalsmith-tasks",
-  "description": "Gulp tasks for metalsmith",
+  "name": "gunmetal",
+  "description": "Gulp & Metalsmith buildtool",
   "main": "index.js",
   "bin": {
-    "gmtasks": "./bin/gmtasks.js"
+    "gunmetal": "./bin/gmtasks.js"
   },
   "author": {
     "email": "goranaleksic@me.com",
     "name": "Goran Aleksic"
   },
   "version": "1.0.0",
-  "homepage": "https://github.com/hivearts/gulp-metalsmith-tasks#readme",
+  "homepage": "https://github.com/hivearts/gunmetal",
   "maintainers": [
     {
       "email": "goganogga@gmail.com",
@@ -35,10 +35,10 @@
   "readme": "README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hivearts/gulp-metalsmith-tasks.git"
+    "url": "git+https://github.com/hivearts/gunmetal.git"
   },
   "bugs": {
-    "url": "https://github.com/hivearts/gulp-metalsmith-tasks/issues"
+    "url": "https://github.com/hivearts/gunmetal/issues"
   },
   "dependencies": {
     "autoprefixer": "^6.4.0",
@@ -107,7 +107,7 @@
   "warnings": [
     {
       "code": "ENOTSUP",
-      "pkgid": "gulp-metalsmith-tasks@0.0.6",
+      "pkgid": "gunmetal@0.0.6",
       "required": {
         "node": "^6.1.0",
         "npm": "^3.8.3"
