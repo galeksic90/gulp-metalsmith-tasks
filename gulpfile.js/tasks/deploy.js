@@ -41,9 +41,12 @@ gulp.task('tag:release', function() {
 
 gulp.task('git:push', function() {
     return gulp.plugins.git.push('origin', 'master', {
-        args: " --tags --force"
+        args: " --tags --force",
+        emitData: true
     }, function(err) {
         if (err) throw err;
+    }).on('data', function(data) {
+        console.log(data);
     });
 });
 

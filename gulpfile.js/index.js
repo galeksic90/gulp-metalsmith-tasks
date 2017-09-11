@@ -27,6 +27,7 @@ if (gulp.config.isLoaded) {
 
     gulp.task('dist', gulp.series('rebuild:full', 'dist:clean', 'dist:copy', 'dist:delete', 'build:sitemap', 'dist:configs'));
 
+    gulp.task('deploy', gulp.series('dist', 'git:init-dist', 'git:push'));
     gulp.task('deploy:patch', gulp.series('dist', 'tag:patch', 'git:init-dist', 'git:push'));
     gulp.task('deploy:feature', gulp.series('dist', 'tag:feature', 'git:init-dist', 'git:push'));
     gulp.task('deploy:release', gulp.series('dist', 'tag:release', 'git:init-dist', 'git:push'));
