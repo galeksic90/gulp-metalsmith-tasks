@@ -2,6 +2,7 @@
 
 var path = require('path');
 var metalsmith_task = require('gulp-metalsmith-server').metalsmith_task;
+var shopify_task = require('gulp-metalsmith-server').shopify_task;
 
 // copy layouts to build
 gulp.task('layouts:copy', function() {
@@ -18,14 +19,20 @@ gulp.task('layouts:copy', function() {
 
 var msFunc = function(cb) {
     metalsmith_task.build(path.join(gulp.config.projectDir, gulp.config.roots.build), gulp.config.layouts.metalsmith, function (err, result) {
-        if (err)
+        if (err) {
             console.log(err);
+        }
+
         cb();
     });
 };
 
 gulp.task('layouts:metalsmith',msFunc);
 gulp.task('layouts:ms', msFunc);
+
+gulp.task('layouts:shopify', function(cb) {
+    shopify_task.run(path.join(gulp.config.projectDir, gulp.config.roots.build), gulp.config.layouts.shopify, cb);
+});
 
 var jadeFunc = function(plugin, filter, options) {
     var srcDir = path.join(gulp.config.projectDir, gulp.config.roots.build, gulp.config.srcRoots.layouts);
@@ -85,4 +92,4 @@ gulp.task('layouts:processhtml', function() {
 });
 
 
-gulp.task('layouts', gulp.series('layouts:' + gulp.config.layouts.engine, 'layouts:processhtml', 'layouts:htmlsplit'));
+gulp.task('layouts', gulp.series('layouts:' + gulp.config.layouts.engine, 'layouts:shopify', 'layouts:processhtml', 'layouts:htmlsplit'));
