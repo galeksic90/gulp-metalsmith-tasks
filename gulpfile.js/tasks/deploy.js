@@ -44,10 +44,11 @@ gulp.task('git:push', function() {
         args: " --tags --force",
         emitData: true
     }, function(err) {
-        if (err) throw err;
-    }).on('data', function(data) {
-        console.log(data);
-    });
+        if (err) {
+            console.log(err);
+            throw err;
+        }
+    })
 });
 
 gulp.task('git:add', function() {
